@@ -5,7 +5,7 @@ pipeline {
         EC2_USER = 'ubuntu'
         EC2_HOST = '54.167.13.212'
         DEPLOY_DIR = '/var/www/userservice' // Target directory on EC2
-        SSH_KEY = credentials('MyAwsKey') // Add SSH key to Jenkins credentials
+        SSH_KEY = credentials('f9dab4b3-a685-407a-b9ad-aa3a33f16523') // Add SSH key to Jenkins credentials
     }
 
     stages {
