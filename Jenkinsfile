@@ -23,13 +23,15 @@ pipeline {
             }
         }
 
-         steps {
-            echo 'Deploying the application...'
-            script {
-                // Rsync or SCP commands to deploy to EC2
-                sh """
-                    rsync -avz --delete ./ ubuntu@54.167.13.212:/var/www/userservice
-                """
+        stage('Deploy') {
+            steps {
+                echo 'Deploying the application...'
+                script {
+                    // Rsync or SCP commands to deploy to EC2
+                    sh """
+                        rsync -avz --delete ./ ubuntu@54.167.13.212:/var/www/userservice
+                    """
+                }
             }
         }
     }
