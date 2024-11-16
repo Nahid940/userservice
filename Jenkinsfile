@@ -18,7 +18,7 @@ pipeline {
             steps {
                 // Sync files from Jenkins workspace to the Laravel project folder
                 sh """
-                sudo rsync -avz --no-times --no-group --delete --no-perms \
+                rsync -avz --no-times --no-group --delete --no-perms \
                     --exclude='.git' \
                     --exclude='.*' \
                     --exclude='storage/logs' \
