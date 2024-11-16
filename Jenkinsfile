@@ -16,12 +16,12 @@ pipeline {
             }
         }
         
-        stage('Install Dependencies') {
-            steps {
-                // Ensure dependencies are installed
-                sh 'composer install --no-dev --optimize-autoloader'
-            }
-        }
+        // stage('Install Dependencies') {
+        //     steps {
+        //         // Ensure dependencies are installed
+        //         sh 'composer install --no-dev --optimize-autoloader'
+        //     }
+        // }
         
         stage('Run Migrations') {
             steps {
