@@ -32,14 +32,6 @@ pipeline {
                 sh 'php artisan route:cache'
             }
         }
-
-        stage('Restart Services') {
-            steps {
-                // Restart necessary services (if applicable)
-                sh 'sudo systemctl restart php8.2-fpm'
-                sh 'sudo systemctl restart nginx'
-            }
-        }
     }
 
     post {
