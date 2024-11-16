@@ -20,6 +20,7 @@ pipeline {
                 sh """
                 rsync -avz --no-times --no-group --no-perms --delete \
                     --exclude='.git' \
+                    --exclude='.*' \
                     --exclude='storage/logs' \
                     --exclude='storage/' \
                     --exclude='.env' \
