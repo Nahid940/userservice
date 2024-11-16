@@ -1,38 +1,53 @@
 pipeline {
     agent any
 
-    environment {
-        EC2_USER = 'ubuntu'
-        EC2_HOST = '54.167.13.212'
-        DEPLOY_DIR = '/var/www/userservice' // Target directory on EC2
-        SSH_KEY = credentials('f9dab4b3-a685-407a-b9ad-aa3a33f16523') // Add SSH key to Jenkins credentials
+    stages {
+        stage('Checkout Code') {
+            steps {
+                // Pull code from GitHub
+                git branch: 'main', url: 'https://github.com/Nahid940/userservice.git'
+            }
+        }
+        
+        stage('Install Dependencies') {
+            steps {
+                // Ensure dependencies are installed
+                sh 'composer install --no-dev --optimize-autoloader'
+            }
+        }
+        
+        stage('Run Migrations') {
+            steps {
+                // Run Laravel migrations
+                sh 'php artisan migrate'
+            }
+        }
+
+        stage('Clear Cache and Config') {
+            steps {
+                // Clear and cache config
+                sh 'php artisan config:clear'
+                sh 'php artisan config:cache'
+                sh 'php artisan route:clear'
+                sh 'php artisan route:cache'
+            }
+        }
+
+        stage('Restart Services') {
+            steps {
+                // Restart necessary services (if applicable)
+                sh 'sudo systemctl restart php-fpm'
+                sh 'sudo systemctl restart nginx'
+            }
+        }
     }
 
-    stages {
-        stage('Build') {
-            steps {
-                echo 'Building the project...'
-                // Add build commands here (e.g., npm install, mvn build)
-            }
+    post {
+        success {
+            echo 'Deployment successful!'
         }
-
-        stage('Test') {
-            steps {
-                echo 'Running tests...'
-                // Add test commands here (e.g., npm test, phpunit)
-            }
-        }
-
-        stage('Deploy') {
-            steps {
-                echo 'Deploying the application...'
-                script {
-                    // Rsync or SCP commands to deploy to EC2
-                    sh """
-                        rsync -avz -e "ssh -i /home/ubuntu/.ssh/MyAwsKey"  --delete ./ ubuntu@54.167.13.212:/var/www/userservice
-                    """
-                }
-            }
+        failure {
+            echo 'Deployment failed. Check the logs for more details.'
         }
     }
 }
