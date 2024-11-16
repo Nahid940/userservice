@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+    environment {
+        WORKSPACE_DIR = "/var/lib/jenkins/workspace/userservice" // Jenkins workspace directory
+        PROJECT_DIR = "/var/www/userservice" // Laravel project directory
+    }
+
     stages {
         stage('Checkout Code') {
             steps {
@@ -12,7 +17,14 @@ pipeline {
         stage('Deploy to EC2 Folder') {
             steps {
                 // Copy files to the Laravel project folder
-                sh 'rsync -avz --no-times --no-group --no-perms --exclude=.git --exclude=vendor/ /var/www/userservice/'
+                sh 'rsync -avz --no-times --no-group --no-perms 
+                --exclude =.git \
+                --exclude =vendor/ \
+                --exclude ='.git' \
+                --exclude ='storage/logs' \
+                --exclude ='.env' \
+                /var/lib/jenkins/workspace/userservice/
+                /var/www/userservice/'
             }
         }
         
