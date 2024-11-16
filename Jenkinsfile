@@ -21,6 +21,7 @@ pipeline {
                 rsync -avz --no-times --no-group --no-perms --delete \
                     --exclude='.git' \
                     --exclude='storage/logs' \
+                    --exclude='storage/' \
                     --exclude='.env' \
                     /var/lib/jenkins/workspace/userservice/ /var/www/userservice/
                 """
