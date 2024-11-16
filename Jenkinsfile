@@ -16,15 +16,15 @@ pipeline {
 
         stage('Deploy to EC2 Folder') {
             steps {
-                // Copy files to the Laravel project folder
-                sh 'rsync -avz --no-times --no-group --no-perms 
-                --exclude =.git \
-                --exclude =vendor/ \
-                --exclude ='.git' \
-                --exclude ='storage/logs' \
-                --exclude ='.env' \
-                /var/lib/jenkins/workspace/userservice/
-                /var/www/userservice/'
+                // Sync files from Jenkins workspace to the Laravel project folder
+                sh """
+                rsync -avz --no-times --no-group --no-perms --delete \
+                    --exclude='.git' \
+                    --exclude='storage/logs' \
+                    --exclude='.env' \
+                    /var/lib/jenkins/workspace/userservice/
+                    /var/www/userservice/'
+                """
             }
         }
         
