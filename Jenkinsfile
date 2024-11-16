@@ -19,7 +19,7 @@ pipeline {
         stage('Run Migrations') {
             steps {
                 // Run Laravel migrations
-                sh 'php artisan migrate'
+                sh 'php artisan migrate --force'
             }
         }
 
