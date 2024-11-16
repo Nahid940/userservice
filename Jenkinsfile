@@ -32,6 +32,13 @@ pipeline {
                 sh 'php artisan route:cache'
             }
         }
+
+        stage('Deploy to EC2 Folder') {
+            steps {
+                // Copy files to the Laravel project folder
+                sh 'rsync -avz --exclude=.git ./ /var/www/userservice/'
+            }
+        }
     }
 
     post {
