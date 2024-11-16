@@ -12,7 +12,7 @@ pipeline {
         stage('Deploy to EC2 Folder') {
             steps {
                 // Copy files to the Laravel project folder
-                sh 'rsync -avz --exclude=.git ./ /var/www/userservice/'
+                sh 'rsync -avz --no-group --no-perms --exclude=.git ./ /var/www/userservice/'
             }
         }
         
