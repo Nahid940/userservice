@@ -36,7 +36,7 @@ pipeline {
         stage('Restart Services') {
             steps {
                 // Restart necessary services (if applicable)
-                sh 'sudo systemctl restart php-fpm'
+                sh 'sudo systemctl restart php8.2-fpm'
                 sh 'sudo systemctl restart nginx'
             }
         }
