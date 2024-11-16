@@ -22,8 +22,7 @@ pipeline {
                     --exclude='.git' \
                     --exclude='storage/logs' \
                     --exclude='.env' \
-                    /var/lib/jenkins/workspace/userservice/
-                    /var/www/userservice/'
+                    /var/lib/jenkins/workspace/userservice/ /var/www/userservice/'
                 """
             }
         }
