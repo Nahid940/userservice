@@ -24,7 +24,7 @@ pipeline {
                     --exclude='storage/logs' \
                     --exclude='storage/' \
                     --exclude='.env' \
-                    --inplace
+                    --inplace \
                     /var/lib/jenkins/workspace/userservice/ /var/www/userservice/
                 """
             }
