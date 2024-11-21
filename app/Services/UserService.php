@@ -11,7 +11,7 @@ class UserService {
     public function getUsers()
     {
         try{
-            $users = User::select('name', 'email' ,'phone', 'age', 'created_at')->get();
+            $users = User::select('name', 'email' ,'phone', 'age', 'created_at')->paginate(20);
             return UserLimitedDataResource::collection($users);
         }catch(Exception $exp)
         {
