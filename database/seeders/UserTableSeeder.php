@@ -21,7 +21,7 @@ class UserTableSeeder extends Seeder
             DB::table('users')->insert([
                 'name' => $faker->name,
                 'email' => $faker->unique()->safeEmail,
-                'phone' => $faker->phoneNumber,
+                'phone' => rand(1000000000, 9999999999),
                 'password' => Hash::make('password'), // Use a hashed password for security
                 'age' => $faker->numberBetween(18, 60),
                 'created_at' => now(),
